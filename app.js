@@ -1,13 +1,17 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const { graphqlHTTP } = require("express-graphql");
-const rootSchema = require("./src/graphql/schema");
-const rootResolver = require('./src/graphql/resolvers')
 const mongoose = require("mongoose");
+
+const rootSchema = require("./src/graphql/schema");
+const rootResolver = require('./src/graphql/resolvers');
+const isAuth = require("./src/middleware/isAuth");
+
 
 const app = express();
 
 app.use(bodyParser.json());
+app.use(isAuth);
 
 app.use(
   "/graphql",
@@ -18,9 +22,9 @@ app.use(
   })
 );
 
-app.get("/", (req, res, next) => {
-  res.send("Welcome to node");
-});
+// app.get("/", (req, res, next) => {
+//   res.send("Welcome to node");
+// });
 
 mongoose
   .connect(
