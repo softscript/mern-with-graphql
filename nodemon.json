@@ -1,6 +1,6 @@
 {
     "env": {
-        "PORT": "3000",
+        "PORT": "8000",
         "MONGO_DB": "react-event-dev",
         "MONGO_USER": "admin",
         "MONGO_PWD": "root",
