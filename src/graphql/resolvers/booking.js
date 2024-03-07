@@ -1,10 +1,13 @@
 const Event = require("./../../models/event");
 const Booking = require("./../../models/booking");
-const  { transfromBooking, transformEvent } = require("./meta")
+const { transfromBooking, transformEvent } = require("./meta");
 module.exports = {
-bookings: async () => {
+  bookings: async (args, req) => {
+    if (!req.isAuth) {
+      throw new Error("Unauthenticated!");
+    }
     try {
-      const fetchBooking = await Booking.find();
+      const fetchBooking = await Booking.find({ user: req.userId });
       const bookingList = fetchBooking.map((booking) => {
         return transfromBooking(booking);
       });
@@ -13,16 +16,19 @@ bookings: async () => {
       throw new Error(`Can not fetch the booking now ${err}`);
     }
   },
-  bookEvent: async (args) => {
+  bookEvent: async (args, req) => {
+    if (!req.isAuth) {
+      throw new Error("Unauthenticated!");
+    }
     try {
       const fetchEvent = await Event.findById(args.eventId);
       const booking = new Booking({
-        user: "65c8c40aca66d028fcafba3b",
+        user: req.userId,
         event: fetchEvent,
       });
 
       const bookingRes = await booking.save();
-      return transfromBooking(bookingRes);;
+      return transfromBooking(bookingRes);
     } catch (err) {
       throw new Error(`Can not book the event now ${err}`);
     }
@@ -43,14 +49,14 @@ bookings: async () => {
       if (!event) {
         throw new Error("User does not exist!");
       }
-      await Event.deleteOne({_id: args.eventId})
+      await Event.deleteOne({ _id: args.eventId });
       return {
         ...event._doc,
         _id: event.id,
-        creator: user.bind(this, event._doc.creator)
-      }
-    } catch(err) {
-      throw new Error('Unable to delete event!')
+        creator: user.bind(this, event._doc.creator),
+      };
+    } catch (err) {
+      throw new Error("Unable to delete event!");
     }
-  }
-}
+  },
+};

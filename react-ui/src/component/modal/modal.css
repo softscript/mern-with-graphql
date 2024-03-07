@@ -1,0 +1,34 @@
+.modal {
+    position: fixed;
+    top: 20vh;
+    width: 90%;
+    left: 5%;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0 , 0, 0, 0.26);
+}
+.modal__header {
+    padding: 1rem;
+    background: black;
+    color: #fff;
+}
+
+.modal__header h1{
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+.modal__content{
+   padding: 1px;
+}
+
+.modal__action {
+    display: flex;
+    justify-content: flex-end;
+}
+
+@media (min-width: 787px) {
+    .modal {
+        width: 50rem;
+        left: calc((100% - 50rem) / 2);
+    }
+}

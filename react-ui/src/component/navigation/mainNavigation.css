@@ -25,19 +25,22 @@
     margin: 0;
     padding: 0;
     list-style: none;
+    
 }
 
 .main-navigation__item li{
     margin: 0 1rem;
 }
-.main-navigation__item a{
+.main-navigation__item a,
+.main-navigation__item button{
     text-decoration: none;
     color: black;
 }
 
 .main-navigation__item a:active,
 .main-navigation__item a:hover,
-.main-navigation__item a.active {
+.main-navigation__item button.hover,
+.main-navigation__item button.active {
     color: #ffffff;
 
 }

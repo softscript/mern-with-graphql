@@ -1,0 +1,1 @@
+exports.isEmpty = (str) => str.trim().length === 0
